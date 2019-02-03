@@ -43,16 +43,31 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnoLib">
+      <HintPath>..\UnoLib\bin\Debug\UnoLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FrmTitle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FrmTitle.Designer.cs">
+      <DependentUpon>FrmTitle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPlayGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPlayGame.Designer.cs">
+      <DependentUpon>FrmPlayGame.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmTitle.resx">
+      <DependentUpon>FrmTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPlayGame.resx">
+      <DependentUpon>FrmPlayGame.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -61,6 +76,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -74,6 +90,177 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\title_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_picker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\blue_skip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\card_back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\card_back_alt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_picker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\green_skip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_picker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\red_skip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\wild_color_changer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\wild_pick_four.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_picker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\cards\yellow_skip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
