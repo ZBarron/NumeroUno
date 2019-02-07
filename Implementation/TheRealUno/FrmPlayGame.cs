@@ -22,6 +22,7 @@ namespace TheRealUno
         private List<PictureBox> playerPics;
         private Stack<Card> discard;
         private PlayerType playerTurn;
+        private Boolean isUno = false;
 
         public FrmPlayGame()
         {
@@ -43,8 +44,8 @@ namespace TheRealUno
             // create players
             cpuPics = new List<PictureBox>();
             playerPics = new List<PictureBox>();
-            cpu = new Player(deck, deck.Draw(5), cpuPics);
-            player = new Player(deck, deck.Draw(5), playerPics);
+            cpu = new Player(deck, deck.Draw(2), cpuPics);
+            player = new Player(deck, deck.Draw(2), playerPics);
 
             playerTurn = PlayerType.PLAYER;
             Discard(deck.Draw(1)[0]);
@@ -64,7 +65,7 @@ namespace TheRealUno
             return pb;
         }
 
-        // so this is the super-broken shit that stops defining cards after a certain point. 
+        // so this is the super-broken thing that stops defining cards after a certain point. 
         private void ShowCards()
         {
             int left = 97;
@@ -121,6 +122,13 @@ namespace TheRealUno
                     playerTurn = PlayerType.PLAYER;
                     cpu.Discard(c);
                     Discard(card);
+                    // handles UNO for CPU - Santiago
+                    if (cpu.NumCards == 1)
+                    {
+                        String msg = "Your opponent has called UNO.";
+                        MessageBox.Show(msg, "UNO Declared!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+
+                    }
                     return;
                 }
             }
@@ -161,6 +169,20 @@ namespace TheRealUno
                     if (CheckValidMove(card))
                     {
                         Discard(player.Discard(index));
+                        if (player.NumCards == 1)
+                        {
+                            String msg = "You now have two seconds to call UNO.";
+                            MessageBox.Show(msg, "One Card Alert", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                            Thread.Sleep(2000);
+                            if (!isUno)
+                            {
+                                button1_Click(null, null);
+                            }
+                        }
+                        if (player.NumCards > 1)
+                        {
+                            isUno = false;
+                        }
                         playerTurn = PlayerType.CPU;
                     }
                     else
@@ -203,19 +225,30 @@ namespace TheRealUno
             ShowCards();
         }
 
-        // UNO button functionality
+        // UNO button functionality - handles stories about UNO and what happens if you incorrectly call UNO
         private void button1_Click(object sender, EventArgs e)
         {
             if (playerTurn == PlayerType.PLAYER)
             {
                 if (player.NumCards != 1)
                 {
+                    String msg = "You cannot call UNO if you don't have one card. Two cards will be drawn for you as penalty.";
+                    MessageBox.Show(msg, "Invalid Play", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    isUno = false;
+                    pbDeck_Click(null, null);
                     pbDeck_Click(null, null);
                 }
-                else
+                else if (player.NumCards == 1)
                 {
                     String msg = "UNO";
                     MessageBox.Show(msg, "UNO declared!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    isUno = true;
+                }
+                else
+                {
+                    isUno = false;
+                    pbDeck_Click(null, null);
+                    pbDeck_Click(null, null);
                 }
             }
         }
