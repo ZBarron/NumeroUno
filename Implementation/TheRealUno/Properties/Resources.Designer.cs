@@ -503,6 +503,16 @@ namespace TheRealUno.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap unologo {
+            get {
+                object obj = ResourceManager.GetObject("unologo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap yellow_0 {
             get {
                 object obj = ResourceManager.GetObject("yellow_0", resourceCulture);
