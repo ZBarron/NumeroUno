@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -44,8 +45,8 @@ namespace TheRealUno
             // create players
             cpuPics = new List<PictureBox>();
             playerPics = new List<PictureBox>();
-            cpu = new Player(deck, deck.Draw(2), cpuPics);
-            player = new Player(deck, deck.Draw(2), playerPics);
+            cpu = new Player(deck, deck.Draw(5), cpuPics); // note: be sure to change this to seven on launch, or implement an option to choose how many cards to start with
+            player = new Player(deck, deck.Draw(5), playerPics);
 
             playerTurn = PlayerType.PLAYER;
             Discard(deck.Draw(1)[0]);
@@ -251,6 +252,11 @@ namespace TheRealUno
                     pbDeck_Click(null, null);
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.unorules.com/");
         }
     }
 }
