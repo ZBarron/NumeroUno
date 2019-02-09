@@ -198,62 +198,86 @@ namespace TheRealUno
 
         private bool CheckValidMove(Card card)
         {
-            if (card.Color == ColorType.BLACK)
-            {
-                if (card.Value == 14) // wild draw 4
-                {
-                    if (playerTurn == PlayerType.CPU)
-                    {
-                        // player draws four cards, a color is chosen, then CPU goes again
-                    }
-                    else if (playerTurn == PlayerType.PLAYER)
-                    {
-                        //cpu draws 4 cards, player chooses color, then player goes again
-                    }
-                }
-
-                if (card.Value == 13) // regular wild
-                {
-                    if (playerTurn == PlayerType.CPU)
-                    {
-                        // color becomes whichever color is next in cpu hands
-                    }
-                    else if (playerTurn == PlayerType.PLAYER)
-                    {
-                        // message box pops up for player to pick color
-                    }
-                }
-            }
-
-            // other action cards
-            if (card.Value == 12 &&(card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
-            {
-                // skip
-            }
-
-            if (card.Value == 11 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
-            {
-                // reverse
-            }
-
-            if (card.Value == 10 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
-            {
-                // draw 2
-                if (playerTurn == PlayerType.CPU)
-                {
-                    // player draws two cards, CPU goes again
-                }
-                else if (playerTurn == PlayerType.PLAYER)
-                {
-                    //cpu draws 2 cards, player goes again
-                }
-            }
-            else
-            {
-                return (card.Color == discard.Peek().Color) || (card.Value == discard.Peek().Value);
-            }
-            return (card.Color == discard.Peek().Color) || (card.Value == discard.Peek().Value);
+            return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 10));
         }
+
+        //private void actionCards (Card card)
+        //{
+        //    if (card.Color == ColorType.BLACK)
+        //    {
+        //        if (card.Value == 14) // wild draw 4
+        //        {
+        //            if (playerTurn == PlayerType.CPU)
+        //            {
+        //                // player draws four cards, a color is chosen, then CPU goes again
+        //                String msg = "Not implemented yet";
+        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                        
+
+        //            }
+        //            else if (playerTurn == PlayerType.PLAYER)
+        //            {
+        //                //cpu draws 4 cards, player chooses color, then player goes again
+        //                String msg = "Not implemented yet";
+        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                        
+        //            }
+        //        }
+
+        //        else if (card.Value == 13) // regular wild
+        //        {
+        //            if (playerTurn == PlayerType.CPU)
+        //            {
+        //                // color becomes whichever color is next in cpu hands
+        //                String msg = "Not implemented yet";
+        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                        
+        //            }
+        //            else if (playerTurn == PlayerType.PLAYER)
+        //            {
+        //                // message box pops up for player to pick color
+        //                String msg = "Not implemented yet";
+        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                        
+        //            }
+        //        }
+        //    }
+
+        //    // other action cards
+        //    else if (card.Value == 12 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+        //    {
+        //        // skip
+        //        String msg = "Not implemented yet";
+        //        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+
+        //    }
+
+        //    else if (card.Value == 11 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+        //    {
+        //        // reverse   
+        //        String msg = "Not implemented yet";
+        //        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+              
+        //    }
+
+        //    else if (card.Value == 10 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+        //    {
+        //        // draw 2
+        //        if (playerTurn == PlayerType.CPU)
+        //        {
+        //            // player draws two cards, CPU goes again
+        //            pbDeck_Click("draw2", null);
+                    
+        //        }
+        //        else if (playerTurn == PlayerType.PLAYER)
+        //        {
+        //            //cpu draws 2 cards, player goes again
+        //            pbDeck_Click("draw2", null);
+                    
+        //        }
+        //    }
+
+        //}
 
         private void Discard(Card card)
         {
@@ -265,10 +289,10 @@ namespace TheRealUno
 
         private void pbDeck_Click(object sender, EventArgs e)
         {
-            var newCards=deck.Draw(1);
+            var newCards=deck.Draw(1); // make newCards a variable up here so I change it whenever I want in the program
             if (playerTurn == PlayerType.PLAYER)
             {
-                if (sender.Equals("uno"))
+                if (sender.Equals("uno") || sender.Equals("draw2"))
                 {
                     newCards = deck.Draw(2);
                 }
@@ -278,7 +302,7 @@ namespace TheRealUno
             }
             else
             {
-                if (sender.Equals("uno"))
+                if (sender.Equals("uno") || sender.Equals("draw2"))
                 {
                     newCards = deck.Draw(2);
                 }
@@ -292,7 +316,6 @@ namespace TheRealUno
         // UNO button functionality - handles stories about UNO and what happens if you incorrectly call UNO
         private void button1_Click(object sender, EventArgs e)
         {
-            Console.Write(sender);
             if (playerTurn == PlayerType.PLAYER)
             {
                 if (player.NumCards != 1)
