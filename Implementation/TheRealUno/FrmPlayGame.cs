@@ -66,7 +66,7 @@ namespace TheRealUno
             return pb;
         }
 
-        // so this is the super-broken thing that stops defining cards after a certain point. 
+        // so this is the super-broken thing that stops defining cards after a certain point. Or at least, part of what's broken.
         private void ShowCards()
         {
             int left = 97;
@@ -198,6 +198,60 @@ namespace TheRealUno
 
         private bool CheckValidMove(Card card)
         {
+            if (card.Color == ColorType.BLACK)
+            {
+                if (card.Value == 14) // wild draw 4
+                {
+                    if (playerTurn == PlayerType.CPU)
+                    {
+                        // player draws four cards, a color is chosen, then CPU goes again
+                    }
+                    else if (playerTurn == PlayerType.PLAYER)
+                    {
+                        //cpu draws 4 cards, player chooses color, then player goes again
+                    }
+                }
+
+                if (card.Value == 13) // regular wild
+                {
+                    if (playerTurn == PlayerType.CPU)
+                    {
+                        // color becomes whichever color is next in cpu hands
+                    }
+                    else if (playerTurn == PlayerType.PLAYER)
+                    {
+                        // message box pops up for player to pick color
+                    }
+                }
+            }
+
+            // other action cards
+            if (card.Value == 12 &&(card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+            {
+                // skip
+            }
+
+            if (card.Value == 11 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+            {
+                // reverse
+            }
+
+            if (card.Value == 10 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+            {
+                // draw 2
+                if (playerTurn == PlayerType.CPU)
+                {
+                    // player draws two cards, CPU goes again
+                }
+                else if (playerTurn == PlayerType.PLAYER)
+                {
+                    //cpu draws 2 cards, player goes again
+                }
+            }
+            else
+            {
+                return (card.Color == discard.Peek().Color) || (card.Value == discard.Peek().Value);
+            }
             return (card.Color == discard.Peek().Color) || (card.Value == discard.Peek().Value);
         }
 
@@ -211,15 +265,24 @@ namespace TheRealUno
 
         private void pbDeck_Click(object sender, EventArgs e)
         {
+            var newCards=deck.Draw(1);
             if (playerTurn == PlayerType.PLAYER)
             {
-                var newCards = deck.Draw(1);
+                if (sender.Equals("uno"))
+                {
+                    newCards = deck.Draw(2);
+                }
+
                 player.GiveCards(newCards);
                 playerTurn = PlayerType.CPU;
             }
             else
             {
-                var newCards = deck.Draw(1);
+                if (sender.Equals("uno"))
+                {
+                    newCards = deck.Draw(2);
+                }
+
                 cpu.GiveCards(newCards);
                 playerTurn = PlayerType.PLAYER;
             }
@@ -229,6 +292,7 @@ namespace TheRealUno
         // UNO button functionality - handles stories about UNO and what happens if you incorrectly call UNO
         private void button1_Click(object sender, EventArgs e)
         {
+            Console.Write(sender);
             if (playerTurn == PlayerType.PLAYER)
             {
                 if (player.NumCards != 1)
@@ -236,8 +300,7 @@ namespace TheRealUno
                     String msg = "You cannot call UNO if you don't have one card. Two cards will be drawn for you as penalty.";
                     MessageBox.Show(msg, "Invalid Play", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                     isUno = false;
-                    pbDeck_Click(null, null);
-                    pbDeck_Click(null, null);
+                    pbDeck_Click("uno", null);
                 }
                 else if (player.NumCards == 1)
                 {
@@ -248,12 +311,12 @@ namespace TheRealUno
                 else
                 {
                     isUno = false;
-                    pbDeck_Click(null, null);
-                    pbDeck_Click(null, null);
+                    pbDeck_Click("uno", null);                
                 }
             }
         }
 
+        // help button - leads to official website
         private void button2_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.unorules.com/");

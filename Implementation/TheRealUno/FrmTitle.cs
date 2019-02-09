@@ -26,7 +26,7 @@ namespace TheRealUno {
             frmPlayGame.Show();
         }
 
-        // help button
+        // help button - leads to official website
         private void button1_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.unorules.com/");
