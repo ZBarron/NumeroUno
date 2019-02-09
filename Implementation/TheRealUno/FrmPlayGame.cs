@@ -292,9 +292,13 @@ namespace TheRealUno
             var newCards=deck.Draw(1); // make newCards a variable up here so I change it whenever I want in the program
             if (playerTurn == PlayerType.PLAYER)
             {
-                if (sender.Equals("uno") || sender.Equals("draw2"))
+                if (!(sender == null))
                 {
-                    newCards = deck.Draw(2);
+                    if (sender.Equals("uno") || sender.Equals("draw2"))
+                    {
+                        newCards = deck.Draw(2);
+                    }
+
                 }
 
                 player.GiveCards(newCards);
@@ -302,11 +306,15 @@ namespace TheRealUno
             }
             else
             {
-                if (sender.Equals("uno") || sender.Equals("draw2"))
+                if (!(sender == null))
                 {
-                    newCards = deck.Draw(2);
-                }
+                    if (sender.Equals("uno") || sender.Equals("draw2"))
+                    {
+                        newCards = deck.Draw(2);
+                    }
 
+                }
+                
                 cpu.GiveCards(newCards);
                 playerTurn = PlayerType.PLAYER;
             }
