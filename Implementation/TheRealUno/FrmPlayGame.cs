@@ -61,9 +61,11 @@ namespace TheRealUno
                 Height = 140,
                 Name = name,
             };
+
             pb.Click += Pb_Click;
             this.Controls.Add(pb);
             return pb;
+            
         }
 
         // so this is the super-broken thing that stops defining cards after a certain point. Or at least, part of what's broken.
@@ -81,6 +83,7 @@ namespace TheRealUno
                 card.Pic.Left = left;
                 card.Pic.Top = top;
                 left += SPACING;
+                
             }
             top = 438;
             left = 97;
@@ -135,18 +138,25 @@ namespace TheRealUno
                     // handles zero cards
                     if (cpu.NumCards == 0)
                     {
-                        for (int i = 0; i < player.NumCards; i++)
-                        {
-                            // make remaining player card not clickable
-                        }
                         String msg = "Your opponent ran out of cards. You've lost the game.";
-                        MessageBox.Show(msg, "Game over!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                        var result = MessageBox.Show(msg, "Game over!", MessageBoxButtons.OK, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+                        if (result == DialogResult.OK)
+                        {
+                            // cancel the closure of the form.
+                            Application.Exit();
+                        }
+
                     }
                     return;
                 }
 
             }
-            pbDeck_Click(null, null);
+
+            if (player.NumCards != 0)
+            {
+                pbDeck_Click(null, null);
+            }
         }
 
         private Image GetCardBgImg(Card card)
@@ -205,12 +215,14 @@ namespace TheRealUno
                         // zero cards
                         if (player.NumCards == 0)
                         {
-                            for (int i = 0; i < cpu.NumCards; i++)
-                            {
-                                // make remaining cpu card not clickable
-                            }
                             String msg = "You've run out of cards. You've won the game!";
-                            MessageBox.Show(msg, "Game over!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);                            
+                            var result = MessageBox.Show(msg, "Game over!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);                                     
+
+                            if (result == DialogResult.OK)
+                            {
+                                // cancel the closure of the form.
+                                Application.Exit();
+                            }
                         }
 
                         playerTurn = PlayerType.CPU;
@@ -364,7 +376,7 @@ namespace TheRealUno
                     isUno = false;
                     pbDeck_Click("uno", null);
                 }
-                else if (player.NumCards == 1)
+                else if (player.NumCards == 1 && sender != null)
                 {
                     String msg = "UNO";
                     MessageBox.Show(msg, "UNO declared!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
