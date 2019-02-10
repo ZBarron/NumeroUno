@@ -45,8 +45,8 @@ namespace TheRealUno
             // create players
             cpuPics = new List<PictureBox>();
             playerPics = new List<PictureBox>();
-            cpu = new Player(deck, deck.Draw(5), cpuPics); // note: be sure to change this to seven on launch, or implement an option to choose how many cards to start with
-            player = new Player(deck, deck.Draw(5), playerPics);
+            cpu = new Player(deck, deck.Draw(2), cpuPics); // note: be sure to change this to seven on launch, or implement an option to choose how many cards to start with
+            player = new Player(deck, deck.Draw(2), playerPics);
 
             playerTurn = PlayerType.PLAYER;
             Discard(deck.Draw(1)[0]);
@@ -123,6 +123,7 @@ namespace TheRealUno
                     playerTurn = PlayerType.PLAYER;
                     cpu.Discard(c);
                     Discard(card);
+
                     // handles UNO for CPU - Santiago
                     if (cpu.NumCards == 1)
                     {
@@ -130,8 +131,20 @@ namespace TheRealUno
                         MessageBox.Show(msg, "UNO Declared!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
                     }
+
+                    // handles zero cards
+                    if (cpu.NumCards == 0)
+                    {
+                        for (int i = 0; i < player.NumCards; i++)
+                        {
+                            // make remaining player card not clickable
+                        }
+                        String msg = "Your opponent ran out of cards. You've lost the game.";
+                        MessageBox.Show(msg, "Game over!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    }
                     return;
                 }
+
             }
             pbDeck_Click(null, null);
         }
@@ -147,6 +160,7 @@ namespace TheRealUno
             string[] nameParts = pb.Name.Split('_');
             int index = int.Parse(nameParts[1]);
             Card card;
+
             if (nameParts[0].ToLower() == "cpu")
             {
                 if (playerTurn == PlayerType.CPU)
@@ -159,6 +173,9 @@ namespace TheRealUno
                     }
                     else
                     {
+                        //actionCards(card);
+                        Discard(cpu.Discard(index));
+                        playerTurn = PlayerType.PLAYER;
                     }
                 }
             }
@@ -184,6 +201,18 @@ namespace TheRealUno
                         {
                             isUno = false;
                         }
+
+                        // zero cards
+                        if (player.NumCards == 0)
+                        {
+                            for (int i = 0; i < cpu.NumCards; i++)
+                            {
+                                // make remaining cpu card not clickable
+                            }
+                            String msg = "You've run out of cards. You've won the game!";
+                            MessageBox.Show(msg, "Game over!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);                            
+                        }
+
                         playerTurn = PlayerType.CPU;
                     }
                     else
@@ -201,7 +230,8 @@ namespace TheRealUno
             return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 10));
         }
 
-        //private void actionCards (Card card)
+        // trying to implement action cards. if anyone has better ideas of how to do it, please do so in your own branch and let other review - Santiago
+        //private void actionCards(Card card)
         //{
         //    if (card.Color == ColorType.BLACK)
         //    {
@@ -211,8 +241,7 @@ namespace TheRealUno
         //            {
         //                // player draws four cards, a color is chosen, then CPU goes again
         //                String msg = "Not implemented yet";
-        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                        
+        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);                
 
         //            }
         //            else if (playerTurn == PlayerType.PLAYER)
@@ -220,7 +249,8 @@ namespace TheRealUno
         //                //cpu draws 4 cards, player chooses color, then player goes again
         //                String msg = "Not implemented yet";
         //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                        
+                     
+
         //            }
         //        }
 
@@ -232,13 +262,14 @@ namespace TheRealUno
         //                String msg = "Not implemented yet";
         //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                         
+
         //            }
         //            else if (playerTurn == PlayerType.PLAYER)
         //            {
         //                // message box pops up for player to pick color
         //                String msg = "Not implemented yet";
         //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                        
+
         //            }
         //        }
         //    }
@@ -257,7 +288,7 @@ namespace TheRealUno
         //        // reverse   
         //        String msg = "Not implemented yet";
         //        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-              
+
         //    }
 
         //    else if (card.Value == 10 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
@@ -267,13 +298,13 @@ namespace TheRealUno
         //        {
         //            // player draws two cards, CPU goes again
         //            pbDeck_Click("draw2", null);
-                    
+
         //        }
         //        else if (playerTurn == PlayerType.PLAYER)
         //        {
         //            //cpu draws 2 cards, player goes again
         //            pbDeck_Click("draw2", null);
-                    
+
         //        }
         //    }
 
