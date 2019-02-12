@@ -262,5 +262,8 @@
   <ItemGroup>
     <None Include="data\cards\yellow_skip.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="data\unologo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
