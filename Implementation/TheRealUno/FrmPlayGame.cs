@@ -147,12 +147,12 @@ namespace TheRealUno
                             var grudgematch = MessageBox.Show(rematch, "Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             // cancel the closure of the form.
 
-                            if (result == DialogResult.No)
+                            if (grudgematch == DialogResult.No)
                             {
                                 Application.Exit();
 
                             }
-                            else
+                            else if (grudgematch == DialogResult.Yes)
                             {
                                 NewGame();
                             }
@@ -235,12 +235,12 @@ namespace TheRealUno
                                 String rematch = "Would you like to continue?";
                                 var grudgematch = MessageBox.Show(rematch, "Continue?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 // cancel the closure of the form.
-                                if (result == DialogResult.No)
+                                if (grudgematch == DialogResult.No)
                                 {
                                     Application.Exit();
 
                                 }
-                                else
+                                else if(grudgematch == DialogResult.Yes)
                                 {
                                     NewGame();
                                 }
