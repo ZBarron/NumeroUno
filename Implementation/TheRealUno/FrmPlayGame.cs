@@ -50,6 +50,7 @@ namespace TheRealUno
 
             playerTurn = PlayerType.PLAYER;
             Discard(deck.Draw(1)[0]);
+          
         }
 
         private PictureBox GenPictureBox(string name)
@@ -204,10 +205,14 @@ namespace TheRealUno
             else
             {
                 if (playerTurn == PlayerType.PLAYER)
-                {
+                {                    
                     card = player.GetCard(index);
                     if (CheckValidMove(card))
                     {
+                        if (player.NumCards > 1)
+                        {
+                            isUno = false;
+                        }
                         Discard(player.Discard(index));
                         if (player.NumCards == 1)
                         {
@@ -216,13 +221,9 @@ namespace TheRealUno
                             Thread.Sleep(2000);
                             if (!isUno)
                             {
-                                button1_Click(null, null);
+                                button1_Click("click", null);
                             }
-                        }
-                        if (player.NumCards > 1)
-                        {
-                            isUno = false;
-                        }
+                        }                       
 
                         // zero cards
                         if (player.NumCards == 0)
@@ -261,7 +262,7 @@ namespace TheRealUno
 
         private bool CheckValidMove(Card card)
         {
-            return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 10));
+            return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 13));
         }
 
         // trying to implement action cards. if anyone has better ideas of how to do it, please do so in your own branch and let other review - Santiago
@@ -404,11 +405,7 @@ namespace TheRealUno
                     MessageBox.Show(msg, "UNO declared!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                     isUno = true;
                 }
-                else
-                {
-                    isUno = false;
-                    pbDeck_Click("uno", null);                
-                }
+                
             }
         }
 
