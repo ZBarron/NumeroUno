@@ -36,12 +36,12 @@ namespace TheRealUno.code {
         if (colorType == ColorType.BLACK)
           continue;
         for (int v = 1; v <= 12; v++) {
-          AddCards(new Card(colorType, v), 2);
+          AddCards(new Card(colorType, v), 1);
         }
       }
     }
 
-    private void AddCards(Card card, int dups) {
+    public void AddCards(Card card, int dups) {
       for (int i = 0; i < dups; i++) {
         cards.Add((Card)card.Clone());
       }
@@ -72,5 +72,11 @@ namespace TheRealUno.code {
         return null;
       }
     }
+    //need to know the size to see if it's empty or is about to be empty
+    public int GetSize()
+    {
+        return cards.Count;
+    }
+  
   }
 }
