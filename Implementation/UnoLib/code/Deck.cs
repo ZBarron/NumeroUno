@@ -25,23 +25,23 @@ namespace TheRealUno.code {
     }
 
     private void NewDeck() {
-      AddCards(new Card(ColorType.BLACK, 13), 4);
-      AddCards(new Card(ColorType.BLACK, 14), 4);
-      AddCards(new Card(ColorType.RED, 0), 1);
-      AddCards(new Card(ColorType.BLUE, 0), 1);
-      AddCards(new Card(ColorType.GREEN, 0), 1);
-      AddCards(new Card(ColorType.YELLOW, 0), 1);
+      //AddCards(new Card(ColorType.BLACK, 13), 4);
+      //AddCards(new Card(ColorType.BLACK, 14), 4);
+      //AddCards(new Card(ColorType.RED, 0), 1);
+      //AddCards(new Card(ColorType.BLUE, 0), 1);
+      //AddCards(new Card(ColorType.GREEN, 0), 1);
+      //AddCards(new Card(ColorType.YELLOW, 0), 1);
 
       foreach (ColorType colorType in Enum.GetValues(typeof(ColorType))) {
         if (colorType == ColorType.BLACK)
           continue;
-        for (int v = 1; v <= 12; v++) {
-          AddCards(new Card(colorType, v), 2);
+        for (int v = 1; v <= 4; v++) {
+          AddCards(new Card(colorType, v), 1);
         }
       }
     }
 
-    private void AddCards(Card card, int dups) {
+    public void AddCards(Card card, int dups) {
       for (int i = 0; i < dups; i++) {
         cards.Add((Card)card.Clone());
       }
@@ -72,5 +72,11 @@ namespace TheRealUno.code {
         return null;
       }
     }
+    //need to know the size to see if it's empty or is about to be empty
+    public int GetSize()
+    {
+        return cards.Count;
+    }
+  
   }
 }
