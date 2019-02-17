@@ -356,13 +356,30 @@ namespace TheRealUno
         private void pbDeck_Click(object sender, EventArgs e)
         {
             var newCards=deck.Draw(1); // make newCards a variable up here so I change it whenever I want in the program
+            //I'll check here to see if this is the last card in the pile
+            if(deck.GetSize() == 0)
+            {
+                EmptyDiscard();
+            }
             if (playerTurn == PlayerType.PLAYER)
             {
                 if (!(sender == null))
                 {
                     if (sender.Equals("uno") || sender.Equals("draw2"))
-                    {
-                        newCards = deck.Draw(2);
+                    {//in case it tries to draw 2 when there's one card left
+                        if(deck.GetSize() == 1)
+                        {
+                            newCards = deck.Draw(1);
+                            EmptyDiscard();
+                        }
+                        else
+                        {
+                            newCards = deck.Draw(2);
+                            if(deck.GetSize() == 0)
+                            {
+                                EmptyDiscard();
+                            }
+                        }
                     }
 
                 }
@@ -407,6 +424,21 @@ namespace TheRealUno
                 }
                 
             }
+        }
+
+        //This method empties the discard pile and reshuffles it for the deck
+        private void EmptyDiscard()
+        {
+            //keep the top card for the discard pile
+            Card topCard = discard.Pop();
+            //take all the cards in discard and add them to the deck
+            while(discard.Count > 0)
+            {
+                deck.AddCards(discard.Pop(), 1);
+            }
+            deck.ShuffleDeck();
+            //Bring the top card back to the discard pile
+            Discard(topCard);
         }
 
         // help button - leads to official website
