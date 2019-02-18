@@ -27,6 +27,8 @@
             this.btnContinueGame = new System.Windows.Forms.Button();
             this.btnQuitGame = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStartGame
@@ -80,6 +82,25 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(262, 499);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(22, 20);
+            this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "7";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.Yellow;
+            this.label1.Location = new System.Drawing.Point(46, 502);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(210, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "How many cards do you want to start with?";
+            // 
             // FrmTitle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -87,6 +108,8 @@
             this.BackgroundImage = global::TheRealUno.Properties.Resources.title_bg;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(937, 557);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnQuitGame);
             this.Controls.Add(this.btnContinueGame);
@@ -96,6 +119,7 @@
             this.Text = "UNO!";
             this.Load += new System.EventHandler(this.FrmTitle_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
@@ -105,6 +129,8 @@
     private System.Windows.Forms.Button btnContinueGame;
     private System.Windows.Forms.Button btnQuitGame;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

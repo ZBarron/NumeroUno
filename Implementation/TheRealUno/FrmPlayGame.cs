@@ -39,6 +39,7 @@ namespace TheRealUno
 
         private void NewGame()
         {
+            int x = FrmTitle.x;
             // create new deck
             deck = new Deck();
             discard = new Stack<Card>();
@@ -46,8 +47,8 @@ namespace TheRealUno
             // create players
             cpuPics = new List<PictureBox>();
             playerPics = new List<PictureBox>();
-            cpu = new Player(deck, deck.Draw(2), cpuPics); // note: be sure to change this to seven on launch, or implement an option to choose how many cards to start with
-            player = new Player(deck, deck.Draw(2), playerPics);
+            cpu = new Player(deck, deck.Draw(x), cpuPics); // note: be sure to change this to seven on launch, or implement an option to choose how many cards to start with
+            player = new Player(deck, deck.Draw(x), playerPics);
 
             playerTurn = PlayerType.PLAYER;
             Discard(deck.Draw(1)[0]);
