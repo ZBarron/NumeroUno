@@ -322,10 +322,17 @@ namespace TheRealUno
                         }
 
                         // If not a valid move and the DRAW +2 action card is played. 
-                        if(card.Value == 12)
+                        if(card.Value == 12 && card.Color == discard.Peek().Color)
                         {
                             string msg = "A DRAW +2 action card has been played. Draw 2 cards from the deck.";
                             MessageBox.Show(msg, "DRAW +2!");
+
+                            //var newCards = deck.Draw(2);
+                            //cpu.GiveCards(newCards);
+
+                            pbDeck_Click("draw2", null);
+                            playerTurn = PlayerType.PLAYER;
+
                         }
 
                     }
