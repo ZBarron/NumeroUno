@@ -24,6 +24,7 @@ namespace TheRealUno
         private Stack<Card> discard;
         private PlayerType playerTurn;
         private Boolean isUno = false;
+        
 
         public FrmPlayGame()
         {
@@ -64,7 +65,7 @@ namespace TheRealUno
             };
 
             pb.Click += Pb_Click;
-            this.Controls.Add(pb);
+            this.Controls.Add(pb);            
             return pb;
             
         }
@@ -96,7 +97,7 @@ namespace TheRealUno
                 card.Pic.BackgroundImage = GetCardBgImg(card);
                 card.Pic.Left = left;
                 card.Pic.Top = top;
-                left += SPACING;
+                left += SPACING;                
             }
 
             if (playerTurn == PlayerType.CPU)
@@ -532,6 +533,17 @@ namespace TheRealUno
         private void button2_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.unorules.com/");
+        }
+
+        public void pictureBox4_Click_1(object sender, EventArgs e)
+        {
+                        // implement change player icon code here
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                pictureBox4.BackgroundImage = new Bitmap(openFileDialog1.FileName);
+                this.label1.Hide();
+            }
         }
     }
 }

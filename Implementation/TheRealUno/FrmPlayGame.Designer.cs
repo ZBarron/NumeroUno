@@ -25,6 +25,7 @@ namespace TheRealUno {
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPlayGame));
             this.lblCpu = new System.Windows.Forms.Label();
             this.lblPlayer = new System.Windows.Forms.Label();
             this.pbDeck = new System.Windows.Forms.PictureBox();
@@ -34,11 +35,16 @@ namespace TheRealUno {
             this.pbDiscard = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.cpu_profile = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDiscard)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpu_profile)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // lblCpu
@@ -70,7 +76,7 @@ namespace TheRealUno {
             this.pbDeck.BackgroundImage = global::TheRealUno.Properties.Resources.card_back;
             this.pbDeck.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbDeck.Location = new System.Drawing.Point(288, 266);
-            this.pbDeck.Margin = new System.Windows.Forms.Padding(4);
+            this.pbDeck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbDeck.Name = "pbDeck";
             this.pbDeck.Size = new System.Drawing.Size(143, 166);
             this.pbDeck.TabIndex = 17;
@@ -82,7 +88,7 @@ namespace TheRealUno {
             this.pictureBox3.BackgroundImage = global::TheRealUno.Properties.Resources.card_back;
             this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox3.Location = new System.Drawing.Point(284, 270);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(143, 166);
             this.pictureBox3.TabIndex = 16;
@@ -93,7 +99,7 @@ namespace TheRealUno {
             this.pictureBox2.BackgroundImage = global::TheRealUno.Properties.Resources.card_back;
             this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox2.Location = new System.Drawing.Point(280, 273);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(143, 166);
             this.pictureBox2.TabIndex = 15;
@@ -104,7 +110,7 @@ namespace TheRealUno {
             this.pictureBox1.BackgroundImage = global::TheRealUno.Properties.Resources.card_back;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(276, 277);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(143, 166);
             this.pictureBox1.TabIndex = 14;
@@ -114,7 +120,7 @@ namespace TheRealUno {
             // 
             this.pbDiscard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pbDiscard.Location = new System.Drawing.Point(508, 277);
-            this.pbDiscard.Margin = new System.Windows.Forms.Padding(4);
+            this.pbDiscard.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pbDiscard.Name = "pbDiscard";
             this.pbDiscard.Size = new System.Drawing.Size(143, 166);
             this.pbDiscard.TabIndex = 13;
@@ -126,6 +132,7 @@ namespace TheRealUno {
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button1.Location = new System.Drawing.Point(708, 320);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(133, 76);
             this.button1.TabIndex = 18;
@@ -138,21 +145,60 @@ namespace TheRealUno {
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.White;
             this.button2.Location = new System.Drawing.Point(1051, 73);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(130, 80);
+            this.button2.Size = new System.Drawing.Size(131, 80);
             this.button2.TabIndex = 19;
             this.button2.Text = "Help";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // cpu_profile
+            // 
+            this.cpu_profile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("cpu_profile.BackgroundImage")));
+            this.cpu_profile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.cpu_profile.Location = new System.Drawing.Point(52, 30);
+            this.cpu_profile.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cpu_profile.Name = "cpu_profile";
+            this.cpu_profile.Size = new System.Drawing.Size(76, 63);
+            this.cpu_profile.TabIndex = 20;
+            this.cpu_profile.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.BackColor = System.Drawing.Color.White;
+            this.pictureBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.BackgroundImage")));
+            this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox4.Location = new System.Drawing.Point(20, 548);
+            this.pictureBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(76, 63);
+            this.pictureBox4.TabIndex = 21;
+            this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 528);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 17);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Click Icon!";
             // 
             // FrmPlayGame
             // 
             this.AccessibleName = "uno_pb";
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoScrollMinSize = new System.Drawing.Size(0, 500);
             this.BackColor = System.Drawing.Color.DarkGray;
             this.ClientSize = new System.Drawing.Size(1253, 742);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.cpu_profile);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pbDeck);
@@ -162,7 +208,8 @@ namespace TheRealUno {
             this.Controls.Add(this.pbDiscard);
             this.Controls.Add(this.lblPlayer);
             this.Controls.Add(this.lblCpu);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmPlayGame";
             this.Text = "Play UNO!";
             this.Load += new System.EventHandler(this.FrmPlayGame_Load);
@@ -171,6 +218,8 @@ namespace TheRealUno {
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbDiscard)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpu_profile)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,5 +240,8 @@ namespace TheRealUno {
     private System.Windows.Forms.PictureBox pbDeck;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox cpu_profile;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label label1;
     }
 }
