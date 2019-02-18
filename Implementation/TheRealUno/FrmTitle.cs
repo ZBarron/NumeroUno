@@ -32,5 +32,9 @@ namespace TheRealUno {
             Process.Start("https://www.unorules.com/");
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // implement change player icon code here
+        }
     }
 }
