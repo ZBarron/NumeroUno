@@ -447,5 +447,16 @@ namespace TheRealUno
         {
             Process.Start("https://www.unorules.com/");
         }
+
+        public void pictureBox4_Click_1(object sender, EventArgs e)
+        {
+                        // implement change player icon code here
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                pictureBox4.BackgroundImage = new Bitmap(openFileDialog1.FileName);
+                this.label1.Hide();
+            }
+        }
     }
 }
