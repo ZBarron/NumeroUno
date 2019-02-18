@@ -9,7 +9,7 @@ namespace TheRealUno {
         {
             InitializeComponent();
         }
-
+        public static int x;
         private void FrmTitle_Load(object sender, EventArgs e)
         {
 
@@ -23,6 +23,7 @@ namespace TheRealUno {
         private void btnStartGame_Click(object sender, EventArgs e)
         {
             FrmPlayGame frmPlayGame = new FrmPlayGame();
+            x = int.Parse(textBox1.Text);
             frmPlayGame.Show();
         }
 
