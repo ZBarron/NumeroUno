@@ -50,6 +50,7 @@ namespace TheRealUno
 
             playerTurn = PlayerType.PLAYER;
             Discard(deck.Draw(1)[0]);
+          
         }
 
         private PictureBox GenPictureBox(string name)
@@ -204,10 +205,14 @@ namespace TheRealUno
             else
             {
                 if (playerTurn == PlayerType.PLAYER)
-                {
+                {                    
                     card = player.GetCard(index);
                     if (CheckValidMove(card))
                     {
+                        if (player.NumCards > 1)
+                        {
+                            isUno = false;
+                        }
                         Discard(player.Discard(index));
                         if (player.NumCards == 1)
                         {
@@ -216,13 +221,9 @@ namespace TheRealUno
                             Thread.Sleep(2000);
                             if (!isUno)
                             {
-                                button1_Click(null, null);
+                                button1_Click("click", null);
                             }
-                        }
-                        if (player.NumCards > 1)
-                        {
-                            isUno = false;
-                        }
+                        }                       
 
                         // zero cards
                         if (player.NumCards == 0)
@@ -318,7 +319,7 @@ namespace TheRealUno
 
         private bool CheckValidMove(Card card)
         {
-            return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 10));
+            return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 13));
         }
 
         //trying to implement action cards. if anyone has better ideas of how to do it, please do so in your own branch and let other review - Santiago
@@ -412,13 +413,30 @@ namespace TheRealUno
         private void pbDeck_Click(object sender, EventArgs e)
         {
             var newCards=deck.Draw(1); // make newCards a variable up here so I change it whenever I want in the program
+            //I'll check here to see if this is the last card in the pile
+            if(deck.GetSize() == 0)
+            {
+                EmptyDiscard();
+            }
             if (playerTurn == PlayerType.PLAYER)
             {
                 if (!(sender == null))
                 {
                     if (sender.Equals("uno") || sender.Equals("draw2"))
-                    {
-                        newCards = deck.Draw(2);
+                    {//in case it tries to draw 2 when there's one card left
+                        if(deck.GetSize() == 1)
+                        {
+                            newCards = deck.Draw(1);
+                            EmptyDiscard();
+                        }
+                        else
+                        {
+                            newCards = deck.Draw(2);
+                            if(deck.GetSize() == 0)
+                            {
+                                EmptyDiscard();
+                            }
+                        }
                     }
 
                 }
@@ -461,12 +479,23 @@ namespace TheRealUno
                     MessageBox.Show(msg, "UNO declared!", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                     isUno = true;
                 }
-                else
-                {
-                    isUno = false;
-                    pbDeck_Click("uno", null);                
-                }
+                
             }
+        }
+
+        //This method empties the discard pile and reshuffles it for the deck
+        private void EmptyDiscard()
+        {
+            //keep the top card for the discard pile
+            Card topCard = discard.Pop();
+            //take all the cards in discard and add them to the deck
+            while(discard.Count > 0)
+            {
+                deck.AddCards(discard.Pop(), 1);
+            }
+            deck.ShuffleDeck();
+            //Bring the top card back to the discard pile
+            Discard(topCard);
         }
 
         // help button - leads to official website
