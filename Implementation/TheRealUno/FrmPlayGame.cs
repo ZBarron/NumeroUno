@@ -24,6 +24,7 @@ namespace TheRealUno
         private Stack<Card> discard;
         private PlayerType playerTurn;
         private Boolean isUno = false;
+        
 
         public FrmPlayGame()
         {
@@ -64,7 +65,7 @@ namespace TheRealUno
             };
 
             pb.Click += Pb_Click;
-            this.Controls.Add(pb);
+            this.Controls.Add(pb);            
             return pb;
             
         }
@@ -96,7 +97,7 @@ namespace TheRealUno
                 card.Pic.BackgroundImage = GetCardBgImg(card);
                 card.Pic.Left = left;
                 card.Pic.Top = top;
-                left += SPACING;
+                left += SPACING;                
             }
 
             if (playerTurn == PlayerType.CPU)
