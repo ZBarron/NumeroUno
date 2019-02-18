@@ -158,6 +158,7 @@ namespace TheRealUno
                             else if (grudgematch == DialogResult.Yes)
                             {
                                 NewGame();
+                                ShowCards();
                             }
 
                         }
@@ -198,7 +199,7 @@ namespace TheRealUno
                     }
                     else
                     {
-                        //actionCards(card);
+                        // actionCards(card);               MARKER - DAVIS
                         Discard(cpu.Discard(index));
                         playerTurn = PlayerType.PLAYER;
                     }
@@ -252,9 +253,103 @@ namespace TheRealUno
 
                         playerTurn = PlayerType.CPU;
                     }
+                    else if (!CheckValidMove(card))
+                    {
+                        // If not a valid move and a WILD CARD is selected
+                        if(card.Value == 13)
+                        {
+                            Discard(player.Discard(index));
+                            // This opens a new form in which the player can define one of four colors 
+                            FrmActionCard frmActionCard = new FrmActionCard();
+                            if (frmActionCard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                string option = frmActionCard.selectedColor;
+                                string msg = String.Format("Current Color: {0}", option);
+                                MessageBox.Show(msg, "WILD CARD!");
+                                // Change the color of the next card to the selected option
+
+                                Console.WriteLine(option);
+                                card = new Card((ColorType)Enum.Parse(typeof(ColorType), option), card.Value);
+                                Console.WriteLine(card.Color);
+                                discard.Push(card);
+
+
+                            }
+                        }
+
+                        // If not a valid move and a WILD DRAW 4 is selected 
+                        if (card.Value == 14)
+                        {
+                            Discard(player.Discard(index));
+                            string msg = "A WILD DRAW FOUR card has been played. Draw 4 cards!";
+                            MessageBox.Show(msg, "WILD CARD!");
+
+                            // Insert some functionality to force the opposing player to draw four cards
+
+                            FrmActionCard frmActionCard = new FrmActionCard();
+                            if (frmActionCard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                            {
+                                string option = frmActionCard.selectedColor;
+                                string text = String.Format("Current Color: {0}", option);
+                                MessageBox.Show(text, "WILD CARD!");
+                                // Change the color of the next card to the selected option
+
+                                Console.WriteLine(option);
+                                card = new Card((ColorType)Enum.Parse(typeof(ColorType), option), card.Value);
+                                Console.WriteLine(card.Color);
+                                discard.Push(card);
+
+                                var newCards = deck.Draw(4);
+                                cpu.GiveCards(newCards);
+
+
+                            }
+                        }
+
+                        // If not a valid move and the SKIP action card is played 
+                        if(card.Value == 10 && card.Color == discard.Peek().Color)
+                        {
+                            Discard(player.Discard(index));
+                            string msg = "A SKIP card has been played. The next player's turn is cancelled.";
+                            MessageBox.Show(msg, "SKIP!");
+                            // Cancel the next player's turn
+
+                            playerTurn = PlayerType.PLAYER;
+
+                            
+                        }
+
+                        // If not a valid move and the REVERSE action card is played.
+                        if(card.Value == 11 && card.Color == discard.Peek().Color)
+                        {
+                            Discard(player.Discard(index));
+                            string msg = "A REVERSE card has been played. The rotation order is now altered.";
+                            MessageBox.Show(msg, "REVERSE!");
+
+                            Discard(card);
+
+                            playerTurn = PlayerType.PLAYER;
+                        }
+
+                        // If not a valid move and the DRAW +2 action card is played. 
+                        if(card.Value == 12 && card.Color == discard.Peek().Color)
+                        {
+                            Discard(player.Discard(index));
+                            string msg = "A DRAW +2 action card has been played. Draw 2 cards from the deck.";
+                            MessageBox.Show(msg, "DRAW +2!");
+
+                            var newCards = deck.Draw(2);
+                            cpu.GiveCards(newCards);
+
+
+                            playerTurn = PlayerType.PLAYER;
+
+                        }
+
+                    }
                     else
                     {
-                        String msg = "Card must match in color, number or action. If you cannot play, click on deck to draw a new card and end your turn.";
+                        String msg = "Card must match in color, number or action. If you cannot play, click on deck to draw a new card and end your turn." + Environment.NewLine +  "Check if you can use any action cards.";
                         MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                     }
                 }
@@ -267,85 +362,85 @@ namespace TheRealUno
             return ((card.Color == discard.Peek().Color && card.Color != ColorType.BLACK) || (card.Value == discard.Peek().Value && card.Value < 13));
         }
 
-        // trying to implement action cards. if anyone has better ideas of how to do it, please do so in your own branch and let other review - Santiago
-        //private void actionCards(Card card)
-        //{
-        //    if (card.Color == ColorType.BLACK)
-        //    {
-        //        if (card.Value == 14) // wild draw 4
-        //        {
-        //            if (playerTurn == PlayerType.CPU)
-        //            {
-        //                // player draws four cards, a color is chosen, then CPU goes again
-        //                String msg = "Not implemented yet";
-        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);                
+        //trying to implement action cards. if anyone has better ideas of how to do it, please do so in your own branch and let other review - Santiago
+        private void actionCards(Card card)
+        {
+            if (card.Color == ColorType.BLACK)
+            {
+                if (card.Value == 14) // wild draw 4
+                {
+                    if (playerTurn == PlayerType.CPU)
+                    {
+                        // player draws four cards, a color is chosen, then CPU goes again
+                        String msg = "Not implemented yet";
+                        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
-        //            }
-        //            else if (playerTurn == PlayerType.PLAYER)
-        //            {
-        //                //cpu draws 4 cards, player chooses color, then player goes again
-        //                String msg = "Not implemented yet";
-        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                     
+                    }
+                    else if (playerTurn == PlayerType.PLAYER)
+                    {
+                        //cpu draws 4 cards, player chooses color, then player goes again
+                        String msg = "Not implemented yet";
+                        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
-        //            }
-        //        }
 
-        //        else if (card.Value == 13) // regular wild
-        //        {
-        //            if (playerTurn == PlayerType.CPU)
-        //            {
-        //                // color becomes whichever color is next in cpu hands
-        //                String msg = "Not implemented yet";
-        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                        
+                    }
+                }
 
-        //            }
-        //            else if (playerTurn == PlayerType.PLAYER)
-        //            {
-        //                // message box pops up for player to pick color
-        //                String msg = "Not implemented yet";
-        //                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                else if (card.Value == 13) // regular wild
+                {
+                    if (playerTurn == PlayerType.CPU)
+                    {
+                        // color becomes whichever color is next in cpu hands
+                        String msg = "Not implemented yet";
+                        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
-        //            }
-        //        }
-        //    }
 
-        //    // other action cards
-        //    else if (card.Value == 12 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
-        //    {
-        //        // skip
-        //        String msg = "Not implemented yet";
-        //        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    }
+                    else if (playerTurn == PlayerType.PLAYER)
+                    {
+                        // message box pops up for player to pick color
+                        String msg = "Not implemented yet";
+                        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
-        //    }
+                    }
+                }
+            }
 
-        //    else if (card.Value == 11 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
-        //    {
-        //        // reverse   
-        //        String msg = "Not implemented yet";
-        //        MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+            // other action cards
+            else if (card.Value == 12 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+            {
+                // skip
+                String msg = "Not implemented yet";
+                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
-        //    }
+            }
 
-        //    else if (card.Value == 10 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
-        //    {
-        //        // draw 2
-        //        if (playerTurn == PlayerType.CPU)
-        //        {
-        //            // player draws two cards, CPU goes again
-        //            pbDeck_Click("draw2", null);
+            else if (card.Value == 11 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+            {
+                // reverse   
+                String msg = "Not implemented yet";
+                MessageBox.Show(msg, "Invalid Card", MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
 
-        //        }
-        //        else if (playerTurn == PlayerType.PLAYER)
-        //        {
-        //            //cpu draws 2 cards, player goes again
-        //            pbDeck_Click("draw2", null);
+            }
 
-        //        }
-        //    }
+            else if (card.Value == 10 && (card.Color == discard.Peek().Color || (card.Value == discard.Peek().Value)))
+            {
+                // draw 2
+                if (playerTurn == PlayerType.CPU)
+                {
+                    // player draws two cards, CPU goes again
+                    pbDeck_Click("draw2", null);
 
-        //}
+                }
+                else if (playerTurn == PlayerType.PLAYER)
+                {
+                    //cpu draws 2 cards, player goes again
+                    pbDeck_Click("draw2", null);
+
+                }
+            }
+
+        }
 
         private void Discard(Card card)
         {
