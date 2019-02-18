@@ -263,6 +263,13 @@ namespace TheRealUno
                                 string msg = String.Format("Current Color: {0}", option);
                                 MessageBox.Show(msg, "WILD CARD!");
                                 // Change the color of the next card to the selected option
+
+                                Console.WriteLine(option);
+
+                                card = new Card((ColorType)Enum.Parse(typeof(ColorType), option), card.Value);
+                                Console.WriteLine(card.Color);
+
+
                             }
                         }
 
@@ -281,22 +288,37 @@ namespace TheRealUno
                                 string text = String.Format("Current Color: {0}", option);
                                 MessageBox.Show(text, "WILD CARD!");
                                 // Change the color of the next card to the selected option
+
+                                Console.WriteLine(option);
+
+                                card = new Card((ColorType)Enum.Parse(typeof(ColorType), option), card.Value);
+                                Console.WriteLine(card.Color);
+
+
                             }
                         }
 
                         // If not a valid move and the SKIP action card is played 
-                        if(card.Value == 10)
+                        if(card.Value == 10 && card.Color == discard.Peek().Color)
                         {
                             string msg = "A SKIP card has been played. The next player's turn is cancelled.";
                             MessageBox.Show(msg, "SKIP!");
                             // Cancel the next player's turn
+
+                            Discard(card);
+                            playerTurn = PlayerType.PLAYER;
+
+                            
                         }
 
                         // If not a valid move and the REVERSE action card is played.
-                        if(card.Value == 11)
+                        if(card.Value == 11 && card.Color == discard.Peek().Color)
                         {
                             string msg = "A REVERSE card has been played. The rotation order is now altered.";
                             MessageBox.Show(msg, "REVERSE!");
+
+                            Discard(card);
+                            playerTurn = PlayerType.PLAYER;
                         }
 
                         // If not a valid move and the DRAW +2 action card is played. 
