@@ -257,6 +257,7 @@ namespace TheRealUno
                         // If not a valid move and a WILD CARD is selected
                         if(card.Value == 13)
                         {
+                            Discard(player.Discard(index));
                             // This opens a new form in which the player can define one of four colors 
                             FrmActionCard frmActionCard = new FrmActionCard();
                             if (frmActionCard.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -267,9 +268,9 @@ namespace TheRealUno
                                 // Change the color of the next card to the selected option
 
                                 Console.WriteLine(option);
-
                                 card = new Card((ColorType)Enum.Parse(typeof(ColorType), option), card.Value);
                                 Console.WriteLine(card.Color);
+                                discard.Push(card);
 
 
                             }
@@ -278,6 +279,7 @@ namespace TheRealUno
                         // If not a valid move and a WILD DRAW 4 is selected 
                         if (card.Value == 14)
                         {
+                            Discard(player.Discard(index));
                             string msg = "A WILD DRAW FOUR card has been played. Draw 4 cards!";
                             MessageBox.Show(msg, "WILD CARD!");
 
@@ -292,9 +294,12 @@ namespace TheRealUno
                                 // Change the color of the next card to the selected option
 
                                 Console.WriteLine(option);
-
                                 card = new Card((ColorType)Enum.Parse(typeof(ColorType), option), card.Value);
                                 Console.WriteLine(card.Color);
+                                discard.Push(card);
+
+                                var newCards = deck.Draw(4);
+                                cpu.GiveCards(newCards);
 
 
                             }
@@ -303,12 +308,13 @@ namespace TheRealUno
                         // If not a valid move and the SKIP action card is played 
                         if(card.Value == 10 && card.Color == discard.Peek().Color)
                         {
+                            Discard(player.Discard(index));
                             string msg = "A SKIP card has been played. The next player's turn is cancelled.";
                             MessageBox.Show(msg, "SKIP!");
                             // Cancel the next player's turn
 
                             Discard(card);
-                            playerTurn = PlayerType.PLAYER;
+                            //playerTurn = PlayerType.PLAYER;
 
                             
                         }
@@ -316,23 +322,25 @@ namespace TheRealUno
                         // If not a valid move and the REVERSE action card is played.
                         if(card.Value == 11 && card.Color == discard.Peek().Color)
                         {
+                            Discard(player.Discard(index));
                             string msg = "A REVERSE card has been played. The rotation order is now altered.";
                             MessageBox.Show(msg, "REVERSE!");
 
                             Discard(card);
-                            playerTurn = PlayerType.PLAYER;
+                            //playerTurn = PlayerType.PLAYER;
                         }
 
                         // If not a valid move and the DRAW +2 action card is played. 
                         if(card.Value == 12 && card.Color == discard.Peek().Color)
                         {
+                            Discard(player.Discard(index));
                             string msg = "A DRAW +2 action card has been played. Draw 2 cards from the deck.";
                             MessageBox.Show(msg, "DRAW +2!");
 
-                            //var newCards = deck.Draw(2);
-                            //cpu.GiveCards(newCards);
+                            var newCards = deck.Draw(2);
+                            cpu.GiveCards(newCards);
 
-                            pbDeck_Click("draw2", null);
+                            
                             playerTurn = PlayerType.PLAYER;
 
                         }
