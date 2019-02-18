@@ -37,6 +37,7 @@ namespace TheRealUno {
             this.button2 = new System.Windows.Forms.Button();
             this.cpu_profile = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -124,7 +125,7 @@ namespace TheRealUno {
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.button1.Location = new System.Drawing.Point(531, 260);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 62);
             this.button1.TabIndex = 18;
@@ -156,6 +157,7 @@ namespace TheRealUno {
             // 
             // pictureBox4
             // 
+            this.pictureBox4.BackColor = System.Drawing.Color.White;
             this.pictureBox4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox4.BackgroundImage")));
             this.pictureBox4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox4.Location = new System.Drawing.Point(15, 445);
@@ -163,6 +165,16 @@ namespace TheRealUno {
             this.pictureBox4.Size = new System.Drawing.Size(57, 51);
             this.pictureBox4.TabIndex = 21;
             this.pictureBox4.TabStop = false;
+            this.pictureBox4.Click += new System.EventHandler(this.pictureBox4_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 429);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Click Icon!";
             // 
             // FrmPlayGame
             // 
@@ -171,6 +183,7 @@ namespace TheRealUno {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
             this.ClientSize = new System.Drawing.Size(940, 603);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.cpu_profile);
             this.Controls.Add(this.button2);
@@ -214,5 +227,6 @@ namespace TheRealUno {
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.PictureBox cpu_profile;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label label1;
     }
 }

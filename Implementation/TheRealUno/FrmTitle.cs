@@ -36,5 +36,10 @@ namespace TheRealUno {
         {
             // implement change player icon code here
         }
+
+        private void button2_Click_1(object sender, EventArgs e)        // This is an obsolete button
+        {
+            //FrmPlayGame.pictureBox4_Click_1();
+        }
     }
 }
