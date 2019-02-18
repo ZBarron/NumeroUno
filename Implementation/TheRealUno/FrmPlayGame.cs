@@ -313,8 +313,7 @@ namespace TheRealUno
                             MessageBox.Show(msg, "SKIP!");
                             // Cancel the next player's turn
 
-                            Discard(card);
-                            //playerTurn = PlayerType.PLAYER;
+                            playerTurn = PlayerType.PLAYER;
 
                             
                         }
@@ -327,7 +326,8 @@ namespace TheRealUno
                             MessageBox.Show(msg, "REVERSE!");
 
                             Discard(card);
-                            //playerTurn = PlayerType.PLAYER;
+
+                            playerTurn = PlayerType.PLAYER;
                         }
 
                         // If not a valid move and the DRAW +2 action card is played. 
@@ -340,7 +340,7 @@ namespace TheRealUno
                             var newCards = deck.Draw(2);
                             cpu.GiveCards(newCards);
 
-                            
+
                             playerTurn = PlayerType.PLAYER;
 
                         }
