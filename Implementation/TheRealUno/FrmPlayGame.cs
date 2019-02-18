@@ -156,6 +156,7 @@ namespace TheRealUno
                             else if (grudgematch == DialogResult.Yes)
                             {
                                 NewGame();
+                                ShowCards();
                             }
 
                         }
